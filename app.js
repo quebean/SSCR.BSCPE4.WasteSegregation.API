@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require('mongoose');
+const cors = require('cors')
 
 const app = express();
 
@@ -18,12 +19,17 @@ mongoose.connect(dbURI, {
         console.log(err);
     });
 
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const tagsRouter = require("./routes/tagsRoute");
+const userRouter = require("./routes/userRoute");
+const transactionRouter = require("./routes/transactionRoute");
+const redeemRouter = require("./routes/redeemRoute");
 
-app.use("/tags", tagsRouter);
+app.use("/api/user", userRouter);
+app.use("/api/transaction", transactionRouter);
+app.use("/api/redeem", redeemRouter);
 
 app.get("/test", (req, res) => {
     res.send("Hello from server!!!");
