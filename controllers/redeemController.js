@@ -23,7 +23,7 @@ module.exports.CreateRedeem = async (req, res) => {
 module.exports.GetRedeemsBySubjectId = async (req, res) => {
     const subjectId = req.body.subjectId;
     try {
-        const result = await Redeem.find({subjectId: subjectId});
+        const result = await Redeem.find({subjectId: subjectId}).sort({createdAt: "desc"});
         res.status(200).json(result);
     } catch (error) {
         res.status(500).json({ message: "Server Error" });
