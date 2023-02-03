@@ -34,3 +34,5 @@ app.use("/api/redeem", redeemRouter);
 app.get("/test", (req, res) => {
     res.send("Hello from server!!!");
 })
+
+module.exports = app;
