@@ -5,7 +5,9 @@ module.exports.CreateUser = async (req, res) => {
     try {
         if (await User.findOne({subjectId: user.subjectId})) {
             res.status(500).json({ error: "User is already Registered" });
-        } else {
+        } else if (await User.findOne({tagId: user.tagId})) {
+            res.status(500).json({ error: "Tag is already Registered" });
+        }  else {
             const result = await User.create(user);
             res.status(200).json(result);
         }
