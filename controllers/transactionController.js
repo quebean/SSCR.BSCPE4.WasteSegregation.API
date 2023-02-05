@@ -7,7 +7,7 @@ module.exports.CreateTransaction = async (req, res) => {
         const user = await User.findOne({tagId: transaction.tagId});
         const points = (transaction.metal * .25)+(transaction.plastic * .15)+(transaction.paper * .05) + user.rewardBalance;
         const result = await Transaction.create(transaction);
-        await User.findOneAndUpdate({tagId: transaction.tagId, rewardBalance: points});
+        await User.findOneAndUpdate({tagId: transaction.tagId}, {rewardBalance: points});
         res.status(200).json(result);
     } catch (error) {
         res.status(500).json({ message: "Server Error" });
