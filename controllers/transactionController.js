@@ -4,7 +4,7 @@ const User = require("../models/user");
 module.exports.CreateTransaction = async (req, res) => {
     const transaction = new Transaction(req.body);
     try {
-        const user = await User.findOne({tagId: transaction.tagId});
+        const user = await User.findOne({tagId: transaction.tagId.toUpperCase()});
         const points = (transaction.metal * .05)+(transaction.plastic * .05)+(transaction.paper * .05) + user.rewardBalance;
         const result = await Transaction.create(transaction);
         await User.findOneAndUpdate({tagId: transaction.tagId}, {rewardBalance: points});
